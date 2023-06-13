@@ -1,0 +1,80 @@
+<div class="mb-3" [draggable]="'true'" (dragstart)="identifyCardBeingDragged($event)"
+  id="list-{{listIndex}}-card-{{cardIndex}}" attr.listIndex="{{listIndex}}" attr.cardIndex="{{cardIndex}}"
+  (dragover)="allowCardDragToBeDropped($event)">
+
+  <!-- Delete Droop Down -->
+  <div style="position: relative;">
+
+  </div>
+  <div class="p-2 border-round-sm  shadow relative">
+
+    <div ngbDropdown class="d-flex justify-content-end">
+      <button type="button" id="dropdownBasic1" ngbDropdownToggle class="card-btn">
+        <svg width="15" height="5">
+          <circle cx="2" cy="2" r="1.5" fill="grey"></circle>
+          <circle cx="7" cy="2" r="1.5" fill="grey"></circle>
+          <circle cx="12" cy="2" r="1.5" fill="grey"></circle>
+        </svg>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <a class="dropdown-item" href="#" (click)="open(mymodal);this.show=false">Delete</a>
+        <ng-template #mymodal let-modal>
+          <div class="modal-body">
+            Are You Sure You Want to Delete this Card
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-primary" (click)="modal.close('Save click')">Confirm</button>
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Closes</button>
+          </div>
+        </ng-template>
+        <a class="dropdown-item" href="#" (click)="this.editAble=true;this.show=false">Edit</a>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <h4 class="no-wrap center m-0 text-orange-600" [(appContentEdit)]="card.header"> </h4>
+    <p class="no-wrap" [(appContentEdit)]="card.summary"></p>
+
+    <div class="flex align-items-center justify-content-between">
+
+      <div class="flex align-items-start flex-column ">
+        <p class="m-0">Priority</p>
+        <select *ngIf="this.editAble" name="priority" id="priorityid">
+          <option value="high">High</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+        </select>
+        <p class="border border-1 px-2 border-danger text-danger "
+          *ngIf="!this.editAble && this.card.priority==='high'">
+          {{this.card.priority}}</p>
+        <p class="border border-1 px-2 border-warning text-warning"
+          *ngIf="!this.editAble&& this.card.priority==='medium'">
+          {{this.card.priority}}</p>
+        <p class="border border-1 px-2 border-secondary text-secondary "
+          *ngIf=" !this.editAble &&this.card.priority==='low'">
+          {{this.card.priority}}</p>
+      </div>
+      <div class="flex align-items-start flex-column">
+        <p class="m-0">Status</p>
+        <select *ngIf="this.editAble" name="status" id="statusid">
+          <option value="In review">In review</option>
+          <option value="Blocked">Blocked</option>
+          <option value="Process">Process</option>
+        </select>
+        <p class="border border-1 px-2 border-primary text-primary "
+          *ngIf="!this.editAble && this.card.status==='In review'">
+          {{this.card.status}}</p>
+        <p class="border border-1 px-2 border-warning text-warning"
+          *ngIf="!this.editAble&& this.card.status==='Process'">
+          {{this.card.status}}</p>
+        <p class="border border-1 px-2 border-danger text-danger "
+          *ngIf=" !this.editAble &&this.card.status==='Blocked'">
+          {{this.card.status}}</p>
+      </div>
+      <div>
+        <p class="m-0">Due Date</p>
+        <p>{{this.card.dueDate}}</p>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="bg-gray-50 m-0 p-3 border border-top-3 border-blue-500 border-round-md w-20rem"
+  (dragover)="allowCardReplacement($event)" (drop)="dropCard($event)" id="list-{{listIndex}}">
+  <app-context-menu (contextAction)="delete()"></app-context-menu>
+  <p class="text-center text-blue-600 font-semibold line-heading" [(appContentEdit)]="list.name">({{list.cards.length}})
+  </p>
+
+  <!-- List Card Starts -->
+  <div id="list-one">
+    <app-card-summary *ngFor="let card of this.list.cards;let i = index" [card]="card" [listIndex]="listIndex"
+      [cardIndex]="i" attr.cardIndex="{{i}}"></app-card-summary>
+  </div>
+  <!-- List Card Ends -->
+  <p class="text-center text-gray-400 cursor-pointer opacity-40 text-base" (click)="addNewCard()">Add new card...</p>
+
+
+
+</div>

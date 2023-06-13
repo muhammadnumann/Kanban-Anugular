@@ -1,0 +1,43 @@
+<div class="container" style="max-width:inherit;width:auto;height:100%;">
+  <div class="row">
+    <div class="col-11"></div>
+    <div class="flex justify-content-end align-content-center py-3 pr-5">
+      <button (click)="saveBoard()" class="bg-blue-600 text-white py-2 px-3 border-round-md  outline-none"
+        style="border: 0">Save</button>
+    </div>
+  </div>
+  <div class="card" style="height:inherit;">
+    <div class="card-search mb-4">
+      <form [formGroup]="searchForm">
+        <div class="">
+          <label for="Search">Search</label>
+          <input formControlName="search" id="Search" type="text"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+        </div>
+      </form>
+
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>{{selectedSortOrder}}</button>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="sortMenu">
+          <button ngbDropdownItem class="dropdown-item" *ngFor="let sortOrder of sortOrders" (click)="ChangeSortOrder(sortOrder)" >{{sortOrder}}</button>
+        </div>
+      </div>
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-outline-primary" id="sortMenu1" ngbDropdownToggle>{{selectedSortStatus}}</button>
+        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="sortMenu">
+          <button ngbDropdownItem class="dropdown-item" *ngFor="let sortStatus of sortStatus" (click)="ChangeSortStatus(sortStatus)" >{{sortStatus}}</button>
+        </div>
+      </div>
+
+    </div>
+    <div class="flex gap-3 card-container overflow-x-auto	pb-4">
+      <app-list *ngFor="let list of lists| searchFilter: searchForm.value.search: selectedSortStatus: selectedSortOrder;let i = index" [list]="list"
+        [listIndex]="i" (moveCardAcrossList)="moveCardAcrossList($event)" (deleteList)="deleteList($event)"
+        attr.listIndex="{{i}}"></app-list>
+      <div class="flex-1" style="margin:10px;padding:15px;padding-top:15px;padding-bottom:15px;">
+        <h6 class="text-center add-new-list" (click)="addList()">Add new item...</h6>
+      </div>
+    </div>
+  </div>
+
+</div>
